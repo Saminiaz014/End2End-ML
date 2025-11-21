@@ -2,4 +2,5 @@ pandas
 numpy
 seaborn
 matplotlib
+"automatically trigger setu[p.py install on pip install"
 -e .
