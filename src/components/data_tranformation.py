@@ -1,3 +1,4 @@
+""" frist we import all the libraries """
 import sys
 from dataclasses import dataclass
 
@@ -12,11 +13,19 @@ from src.exception import CustomException
 from src.logger import logging
 import os
 
-from src.utlis import save_object
+from src.utils import save_object
 
+"""next we create a dataclass for data transformation config, what 
+this does is that it saves the preprocessor object file path in the artifacts folder"""
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path=os.path.join('artifacts',"proprocessor.pkl")
+    preprocessor_obj_file_path=os.path.join('artifacts',"preprocessor.pkl")
+
+""" Next we create a class for data transformation, which have the following methods:
+1. get_data_transformer_object: This function is responsible for data transformation
+2. initiate_data_transformation: This function initiates the data transformation process
+in simple words it reads the train and test data, applies the preprocessor object on
+the data and saves the preprocessor object in the artifacts folder"""
 
 class DataTransformation:
     def __init__(self):
@@ -24,7 +33,7 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        This function si responsible for data trnasformation
+        This function is responsible for data trnasformation and returns the preprocessor object
         
         '''
         try:
@@ -72,7 +81,12 @@ class DataTransformation:
         
         except Exception as e:
             raise CustomException(e,sys)
-        
+
+        """this funtion reads train/test CSVs, 
+        separates inputs and target, fits the preprocessor on the training inputs, 
+        transforms both train and test inputs into numpy arrays, concatenates the target back to the 
+        arrays, saves the preprocessor object to disk, and returns (train_arr, test_arr, preprocessor_filepath)."""
+
     def initiate_data_transformation(self,train_path,test_path):
 
         try:
